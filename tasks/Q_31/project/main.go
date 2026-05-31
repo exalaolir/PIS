@@ -59,11 +59,11 @@ func handlerMP(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "файл avatar не загружен: "+err.Error(), http.StatusBadRequest)
 			return
 		}
-		defer file.Close()
 
 		dst, _ := os.Create("./uploads-" + header.Filename)
 		io.Copy(dst, file)
 		dst.Close()
+		file.Close()
 
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
