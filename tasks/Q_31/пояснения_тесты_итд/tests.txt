@@ -3,35 +3,38 @@ y - 64-битное число с плавающей точкой
 s - строка
 b - булевое значение
 avatar - файл
-все параметры не должны первышать 10 мб
+все параметры вместе не должны первышать 10 мб
 
 позитивный
-curl -X POST http://localhost:3000/MP -H "Content-Type: multipart/form-data" -F "x=0" -F "y=3.1" -F "s=Hello World" -F "b=true" -F "avatar=@./img.png"
-curl -X POST http://localhost:3000/MP -H "Content-Type: multipart/form-data" -F "x=0" -F "y=3.1" -F "s=1" -F "b=true" -F "avatar=@./txt.txt"
+в гс Смелов сказал что можно не указывать -H "Content-Type: multipart/form-data" и также в лекции написано что
+-F  - автоматически указывает multipart/form-data
+
+curl -X POST http://localhost:3000/MP  -F "x=0" -F "y=3.1" -F "s=Hello World" -F "b=true" -F "avatar=@./img.png"
+curl -X POST http://localhost:3000/MP  -F "x=0" -F "y=3.1" -F "s=1" -F "b=true" -F "avatar=@./txt.txt"
 
 негативные
 -ошибка что тело не типа multipart/form-data
 curl -X POST http://localhost:3000/MP -H "Content-Type: application/json" -d '{"x":42,"y":3.14,"s":"Hello","b":true}'
 
 -ошибка с параметром параметры
-curl -X POST http://localhost:3000/MP -H "Content-Type: multipart/form-data" -F "x=0" -F "y=3.1" -F "s=Hello World" -F "b=true" 
-curl -X POST http://localhost:3000/MP -H "Content-Type: multipart/form-data" -F "y=3.1" -F "s=Hello World" -F "b=true" -F "avatar=@./img.png"   
-curl -X POST http://localhost:3000/MP -H "Content-Type: multipart/form-data" -F "x=0" -F "s=Hello World" -F "b=true" -F "avatar=@./img.png"    
-curl -X POST http://localhost:3000/MP -H "Content-Type: multipart/form-data" -F "x=0" -F "y=3.1" -F "b=true" -F "avatar=@./img.png"
-curl -X POST http://localhost:3000/MP -H "Content-Type: multipart/form-data" -F "x=0" -F "y=3.1" -F "s=Hello World" -F "avatar=@./img.png"
+curl -X POST http://localhost:3000/MP -F "x=0" -F "y=3.1" -F "s=Hello World" -F "b=true" 
+curl -X POST http://localhost:3000/MP -F "y=3.1" -F "s=Hello World" -F "b=true" -F "avatar=@./img.png"   
+curl -X POST http://localhost:3000/MP -F "x=0" -F "s=Hello World" -F "b=true" -F "avatar=@./img.png"    
+curl -X POST http://localhost:3000/MP -F "x=0" -F "y=3.1" -F "b=true" -F "avatar=@./img.png"
+curl -X POST http://localhost:3000/MP -F "x=0" -F "y=3.1" -F "s=Hello World" -F "avatar=@./img.png"
 
-curl -X POST http://localhost:3000/MP -H "Content-Type: multipart/form-data" -F "x=ра" -F "y=3.1" -F "s=Hello World" -F "b=true" -F "avatar=@./img.png"
-curl -X POST http://localhost:3000/MP -H "Content-Type: multipart/form-data" -F "x=" -F "y=3.1" -F "s=Hello World" -F "b=true" -F "avatar=@./img.png"
-curl -X POST http://localhost:3000/MP -H "Content-Type: multipart/form-data" -F "x=5.4" -F "y=3.1" -F "s=Hello World" -F "b=true" -F "avatar=@./img.png"
+curl -X POST http://localhost:3000/MP -F "x=ра" -F "y=3.1" -F "s=Hello World" -F "b=true" -F "avatar=@./img.png"
+curl -X POST http://localhost:3000/MP -F "x=" -F "y=3.1" -F "s=Hello World" -F "b=true" -F "avatar=@./img.png"
+curl -X POST http://localhost:3000/MP -F "x=5.4" -F "y=3.1" -F "s=Hello World" -F "b=true" -F "avatar=@./img.png"
 
-curl -X POST http://localhost:3000/MP -H "Content-Type: multipart/form-data" -F "x=5" -F "y=зф" -F "s=Hello World" -F "b=true" -F "avatar=@./img.png"
-curl -X POST http://localhost:3000/MP -H "Content-Type: multipart/form-data" -F "x=5" -F "y=" -F "s=Hello World" -F "b=true" -F "avatar=@./img.png"
-curl -X POST http://localhost:3000/MP -H "Content-Type: multipart/form-data" -F "x=5" -F "y=1e500" -F "s=Hello World" -F "b=true" -F "avatar=@./img.png"
+curl -X POST http://localhost:3000/MP -F "x=5" -F "y=зф" -F "s=Hello World" -F "b=true" -F "avatar=@./img.png"
+curl -X POST http://localhost:3000/MP -F "x=5" -F "y=" -F "s=Hello World" -F "b=true" -F "avatar=@./img.png"
+curl -X POST http://localhost:3000/MP -F "x=5" -F "y=1e500" -F "s=Hello World" -F "b=true" -F "avatar=@./img.png"
 
-curl -X POST http://localhost:3000/MP -H "Content-Type: multipart/form-data" -F "x=0" -F "y=3.1" -F "s=" -F "b=true" -F "avatar=@./img.png"
+curl -X POST http://localhost:3000/MP -F "x=0" -F "y=3.1" -F "s=" -F "b=true" -F "avatar=@./img.png"
 
-curl -X POST http://localhost:3000/MP -H "Content-Type: multipart/form-data" -F "x=5" -F "y=1" -F "s=Hello World" -F "b=true_Ds" -F "avatar=@./img.png"
-curl -X POST http://localhost:3000/MP -H "Content-Type: multipart/form-data" -F "x=5" -F "y=1" -F "s=Hello World" -F "b=5" -F "avatar=@./img.png"
-curl -X POST http://localhost:3000/MP -H "Content-Type: multipart/form-data" -F "x=5" -F "y=1" -F "s=Hello World" -F "b=" -F "avatar=@./img.png" 
+curl -X POST http://localhost:3000/MP -F "x=5" -F "y=1" -F "s=Hello World" -F "b=true_Ds" -F "avatar=@./img.png"
+curl -X POST http://localhost:3000/MP -F "x=5" -F "y=1" -F "s=Hello World" -F "b=5" -F "avatar=@./img.png"
+curl -X POST http://localhost:3000/MP -F "x=5" -F "y=1" -F "s=Hello World" -F "b=" -F "avatar=@./img.png" 
 
-curl -X POST http://localhost:3000/MP -H "Content-Type: multipart/form-data" -F "x=0" -F "y=3.1" -F "s=1" -F "b=true" -F "avatar=./img.png" 
+curl -X POST http://localhost:3000/MP -F "x=0" -F "y=3.1" -F "s=1" -F "b=true" -F "avatar=./img.png" 
