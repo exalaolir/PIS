@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+    <div id="output"></div>
+    <script>
+        const out = document.getElementById("output");
+        const wsURL = "ws://localhost:3000/ws";
+        const maxBackoff = 30000;
+        let retryDelay = 1000;
+        let messageNum = 1;
+        let intervalId = null;
+        let shouldReconnect = true;
+
+        function log(text) {
+            const p = document.createElement("p");
+            p.textContent = text;
+            out.appendChild(p);
+        }
+
+        function startSending(socket) {
+            messageNum = 1;
+            if (intervalId) clearInterval(intervalId);
+            intervalId = setInterval(() => {
+                if (messageNum <= 5) {
+                    socket.send("сообщение " + messageNum);
+                    log("отправлено: сообщение " + messageNum);
+                    messageNum++;
+                } else {
+                    clearInterval(intervalId);
+                    shouldReconnect = false;
+                    setTimeout(() => socket.close(1000, "конец"), 2000);
+                }
+            }, 1000);
+        }
+
+        function connect() {
+            const socket = new WebSocket(wsURL);
+
+            socket.onopen = () => {
+                retryDelay = 1000;
+                log("соединение открыто");
+                startSending(socket);
+            };
+
+            socket.onmessage = (e) => {
+                log("сервер: " + e.data);
+            };
+
+            socket.onclose = (e) => {
+                if (intervalId) clearInterval(intervalId);
+                log("закрыто: code=" + e.code);
+
+                if (shouldReconnect && e.code !== 1000) {
+                    log("переподключение через " + retryDelay + " мс...");
+                    setTimeout(connect, retryDelay);
+                    retryDelay = Math.min(retryDelay * 2, maxBackoff);
+                }
+            };
+
+            socket.onerror = () => {
+                log("ошибка соединения");
+            };
+        }
+
+        connect();
+    </script>
+</body>
+</html>
