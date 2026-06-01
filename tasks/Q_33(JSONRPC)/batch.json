@@ -1,0 +1,54 @@
+[
+    {
+        "jsonrpc": "2.0",
+        "method": "pre",
+        "params": {
+            "N": 1
+        }
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "sum",
+        "params": [
+            5.05,
+            3.33
+        ],
+        "id": 17
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "s",
+        "params": [
+            5.05,
+            3.33
+        ],
+        "id": 18
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "mul",
+        "params": [
+            5.05,
+            3.33
+        ],
+        "id": 19
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "mul",
+        "params": [
+            5.05,
+            "sf"
+        ],
+        "id": 19
+    },
+    {
+        "jsonrpc": "2.0",
+        "method": "div",
+        "params": {
+            "x": 5.05,
+            "y": 3.33
+        },
+        "id": 20
+    }
+]

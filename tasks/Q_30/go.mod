@@ -1,4 +1,4 @@
-module 32
+module Q_30
 
 go 1.25.7
 
