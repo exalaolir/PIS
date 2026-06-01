@@ -1,0 +1,49 @@
+Тесты для обработчика Q1 (один обязательный параметр x)
+Успешный запросы 
+
+curl -X GET "http://localhost:3000/Q?x=hello"
+curl -X GET "http://localhost:3000/Q?x=123abc"
+curl -X GET "http://localhost:3000/Q3?x=-5"
+curl -X GET "http://localhost:3000/Q?x=3.14"
+Успешный запрос - значение с пробелом (должно быть закодировано)
+curl -X GET "http://localhost:3000/Q?x=hello%20world"
+
+Ошибочный запросы
+curl -X GET "http://localhost:3000/Q"
+curl -X GET "http://localhost:3000/Q?z=value"
+
+Тесты для обработчика Q2 (два обязательных параметра x и y)
+
+Успешные запросы 
+
+curl -X GET "http://localhost:3000/Q?x=10&y=20"
+curl -X GET "http://localhost:3000/Q?y=20&x=10"
+
+curl -X GET "http://localhost:3000/Q?x=-5&y=3"
+curl -X GET "http://localhost:3000/Q?x=1000&y=2000"
+
+Ошибочные запросы 
+
+curl -X GET "http://localhost:3000/Q?x=abc&y=20"
+curl -X GET "http://localhost:3000/Q?x=10&y=def"
+curl -X GET "http://localhost:3000/Q?y=20"
+
+Тесты для обработчика /Q3 (обязательный параметр x с валидацией только цифр)
+
+curl -X GET "http://localhost:3000/Q?x=123"
+curl -X GET "http://localhost:3000/Q?x=0"
+curl -X GET "http://localhost:3000/Q?x=9999"
+
+
+Тесты для обработчика /Q4 (опциональные параметры через r.URL.Query())
+
+Успешные запросы - без параметров
+curl -X GET "http://localhost:3000/Q4"
+curl -X GET "http://localhost:3000/Q4?x=hello"
+curl -X GET "http://localhost:3000/Q4?x=hello&y=world"
+curl -X GET "http://localhost:3000/Q4?y=world&x=hello"
+curl -X GET "http://localhost:3000/Q4?tag=go"
+curl -X GET "http://localhost:3000/Q4?tag=go&tag=web&tag=api"
+curl -X GET "http://localhost:3000/Q4?x=user&y=123&tag=go&tag=rest"
+curl -X GET "http://localhost:3000/Q4?x=hello%20world&y=foo%20bar"
+
