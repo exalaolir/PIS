@@ -20,7 +20,7 @@ func createUser(
 
 	err := json.NewDecoder(
 		r.Body,
-	).Decode(&user)
+	).Decode(&user) // чтение json из тела запроса
 
 	if err != nil {
 		http.Error(
@@ -29,17 +29,17 @@ func createUser(
 			http.StatusBadRequest,
 		)
 		return
-	}
+	} // Проверка на наличие ошибок сереализации. Если есть ошибки -- возвращаем код 400
 
 	w.Header().Set(
 		"Content-Type",
 		"application/json",
-	)
+	) // Установка заголовков 
 
 	if err := json.NewEncoder(w).Encode(user); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
-	}
+	} // Пишем json в тело ответа
 }
 
 func main() {
