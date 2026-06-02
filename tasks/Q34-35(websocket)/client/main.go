@@ -60,6 +60,7 @@ func main() {
 
 		if err := conn.WriteMessage(websocket.TextMessage, msg); err != nil {
 			log.Println("записано:", err, "— переподключение...")
+			conn.Close()
 			conn, replies = dialWithBackoff()
 			i--
 			continue
@@ -84,5 +85,6 @@ func main() {
 		websocket.FormatCloseMessage(websocket.CloseNormalClosure, "конец"))
 	if err != nil {
 		log.Println("закрытие:", err)
+		conn.Close()
 	}
 }
