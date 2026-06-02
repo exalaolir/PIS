@@ -1,0 +1,21 @@
+2026/06/02 17:54:33 main.go:318: WebDAV сервер запущен
+2026/06/02 17:54:33 main.go:319: Адрес: http://localhost:8080
+2026/06/02 17:54:33 main.go:320: Корневая директория: ./webdav_root
+2026/06/02 17:54:33 main.go:321: Поддерживаемые методы: MKCOL, PUT, GET, COPY, MOVE, DELETE
+2026/06/02 17:54:33 main.go:322: Ожидание подключений...
+2026/06/02 17:55:14 main.go:25: MKCOL /test_folder
+2026/06/02 17:55:14 main.go:63: MKCOL: создана директория webdav_root\test_folder
+2026/06/02 17:55:14 main.go:25: PUT /test_folder/file.txt
+2026/06/02 17:55:14 main.go:93: PUT: записан файл webdav_root\test_folder\file.txt
+2026/06/02 17:55:14 main.go:25: GET /test_folder/file.txt
+2026/06/02 17:55:14 main.go:125: GET: прочитан файл webdav_root\test_folder\file.txt (25 байт)
+2026/06/02 17:55:14 main.go:25: COPY /test_folder/file.txt
+2026/06/02 17:55:14 main.go:146: COPY: webdav_root\test_folder\file.txt -> webdav_root\test_folder\copy.txt
+2026/06/02 17:55:14 main.go:180: COPY: успешно скопирован webdav_root\test_folder\file.txt -> webdav_root\test_folder\copy.txt
+2026/06/02 17:55:14 main.go:25: MOVE /test_folder/copy.txt
+2026/06/02 17:55:14 main.go:202: MOVE: webdav_root\test_folder\copy.txt -> webdav_root\test_folder\moved.txt
+2026/06/02 17:55:14 main.go:228: MOVE: успешно перемещён webdav_root\test_folder\copy.txt -> webdav_root\test_folder\moved.txt
+2026/06/02 17:55:14 main.go:25: DELETE /test_folder/moved.txt
+2026/06/02 17:55:14 main.go:252: DELETE: удалён webdav_root\test_folder\moved.txt
+2026/06/02 17:55:14 main.go:25: DELETE /test_folder
+2026/06/02 17:55:14 main.go:252: DELETE: удалён webdav_root\test_folder

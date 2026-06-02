@@ -1,0 +1,9 @@
+2026/06/02 17:55:14 client_local.go:130: WebDAV клиент тестирование локального сервера
+2026/06/02 17:55:14 client_local.go:136: MKCOL: директория /test_folder создана
+2026/06/02 17:55:14 client_local.go:143: PUT: файл /test_folder/file.txt записан
+2026/06/02 17:55:14 client_local.go:150: GET: содержимое файла: Hello from WebDAV client!
+2026/06/02 17:55:14 client_local.go:157: COPY: файл скопирован в /test_folder/copy.txt
+2026/06/02 17:55:14 client_local.go:164: MOVE: файл перемещен в /test_folder/moved.txt
+2026/06/02 17:55:14 client_local.go:171: DELETE: файл /test_folder/moved.txt удален
+2026/06/02 17:55:14 client_local.go:178: DELETE: директория /test_folder удалена
+2026/06/02 17:55:14 client_local.go:181: Тестирование завершено
