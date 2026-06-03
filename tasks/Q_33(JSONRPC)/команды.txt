@@ -1,5 +1,5 @@
 параметры-массивом
-curl.exe -X POST "http://localhost:3000/rpc" -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"sum","params":[5.05,3.33],"id":1}'
+curl.exe -X POST "http://localhost:3000/rpc" -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"sum","params":[5.05,3.33],"id":"1"}'
 curl.exe -X POST "http://localhost:3000/rpc" -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"sub","params":[5.05,3.33],"id":2}'
 curl.exe -X POST "http://localhost:3000/rpc" -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"mul","params":[5.05,3.33],"id":3}'
 curl.exe -X POST "http://localhost:3000/rpc" -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"div","params":[5.05,3.33],"id":4}'

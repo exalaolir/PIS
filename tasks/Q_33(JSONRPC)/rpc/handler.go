@@ -10,7 +10,6 @@ func handleRPC(req RPCRequest) *RPCResponse {
 	log.Printf("метод=%s параметры=%s id=%v\n", req.Method, string(req.Params), req.ID)
 
 	if req.ID == nil {
-		// notification: no response per JSON-RPC 2.0
 		invokeMethod(req)
 		return nil
 	}
@@ -50,7 +49,6 @@ func invokeMethod(req RPCRequest) (interface{}, *RPCError) {
 }
 
 func RpcHandler(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
 
 	decoder := json.NewDecoder(r.Body)
 	decoder.DisallowUnknownFields()
@@ -60,12 +58,14 @@ func RpcHandler(w http.ResponseWriter, r *http.Request) {
 	if err := decoder.Decode(&raw); err != nil {
 		log.Println("Некорректный запрос:", err)
 		writeRPC(w, errorResponse(nil, errParse()))
+		r.Body.Close()
 		return
 	}
 
 	if decoder.More() {
 		log.Println("В запросе содержится несколько JSON-объектов")
 		writeRPC(w, errorResponse(nil, errInvalidRequest()))
+		r.Body.Close()
 		return
 	}
 
@@ -74,6 +74,7 @@ func RpcHandler(w http.ResponseWriter, r *http.Request) {
 		if err := json.Unmarshal(raw, &reqs); err != nil {
 			log.Println("Некорректный пакет:", err)
 			writeRPC(w, errorResponse(nil, errInvalidRequest()))
+			r.Body.Close()
 			return
 		}
 
@@ -88,6 +89,7 @@ func RpcHandler(w http.ResponseWriter, r *http.Request) {
 
 		if len(res) == 0 {
 			w.WriteHeader(http.StatusNoContent)
+			r.Body.Close()
 			return
 		}
 
@@ -95,6 +97,7 @@ func RpcHandler(w http.ResponseWriter, r *http.Request) {
 		if err := json.NewEncoder(w).Encode(res); err != nil {
 			log.Println("Ошибка пакетной обработки при кодировании:", err)
 		}
+		r.Body.Close()
 		return
 	}
 
@@ -102,6 +105,7 @@ func RpcHandler(w http.ResponseWriter, r *http.Request) {
 	if err := json.Unmarshal(raw, &req); err != nil {
 		log.Println("Некорректный единичный запрос:", err)
 		writeRPC(w, errorResponse(nil, errInvalidRequest()))
+		r.Body.Close()
 		return
 	}
 
@@ -109,8 +113,10 @@ func RpcHandler(w http.ResponseWriter, r *http.Request) {
 
 	if rpcRes == nil {
 		w.WriteHeader(http.StatusNoContent)
+		r.Body.Close()
 		return
 	}
 
 	writeRPC(w, rpcRes)
+	r.Body.Close()
 }

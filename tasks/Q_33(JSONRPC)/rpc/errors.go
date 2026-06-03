@@ -13,26 +13,20 @@ const (
 	codeInvalidParams  = -32602
 )
 
-type RPCError struct {
-	Code    int         `json:"code"`
-	Message string      `json:"message"`
-	Data    interface{} `json:"data,omitempty"`
-}
-
 func errParse() *RPCError {
-	return &RPCError{Code: codeParseError, Message: "Parse error"}
+	return &RPCError{Code: codeParseError, Message: "Ошибка парсера"}
 }
 
 func errInvalidRequest() *RPCError {
-	return &RPCError{Code: codeInvalidRequest, Message: "Invalid Request"}
+	return &RPCError{Code: codeInvalidRequest, Message: "Невалидный запрос"}
 }
 
 func errMethodNotFound() *RPCError {
-	return &RPCError{Code: codeMethodNotFound, Message: "Method not found"}
+	return &RPCError{Code: codeMethodNotFound, Message: "Метод не найден"}
 }
 
 func errInvalidParams(detail string) *RPCError {
-	e := &RPCError{Code: codeInvalidParams, Message: "Invalid params"}
+	e := &RPCError{Code: codeInvalidParams, Message: "Невалидные парметры"}
 	if detail != "" {
 		e.Data = detail
 	}

@@ -6,6 +6,7 @@ type RPCRequest struct {
 	Jsonrpc string          `json:"jsonrpc"`
 	Method  string          `json:"method"`
 	Params  json.RawMessage `json:"params"`
+	//type RawMessage []byte
 	ID      interface{}     `json:"id,omitempty"`
 }
 
@@ -22,4 +23,9 @@ type XYMap struct {
 
 type NMap struct {
 	N int `json:"N"`
+}
+type RPCError struct {
+	Code    int         `json:"code"`
+	Message string      `json:"message"`
+	Data    interface{} `json:"data,omitempty"`
 }
