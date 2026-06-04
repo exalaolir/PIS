@@ -27,4 +27,17 @@ func main() {
 
 	var nilSlice []int
 	fmt.Println("nilSlice == nil:", nilSlice == nil)
+
+	var g [3]int = [...]int{1, 2, 3}
+
+	k := g[:2]
+
+	fmt.Println("s:", k, "len:", len(k), "cap:", cap(k))
+
+	for  i := 0; i < 5; i++ {
+		k = append(k, i)
+	}
+
+	fmt.Println("s:", k, "len:", len(k), "cap:", cap(k))
+	fmt.Println(g)
 }

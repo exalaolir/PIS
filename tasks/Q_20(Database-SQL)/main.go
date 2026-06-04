@@ -84,7 +84,7 @@ func main() {
 
 	// 6. ВЫБОРКА ОДНОЙ СТРОКИ (QueryRowContext)
 	fmt.Println("\n--- Выборка одного пользователя (QueryRowContext) ---")
-	err = querySingleRow(ctx, db, 1) // Ищем существующего ID 1
+	err = querySingleRow(ctx, db, 9) // Ищем существующего ID 1
 	if err != nil {
 		log.Printf("Ошибка при выборке строки: %v", err)
 	}
@@ -111,10 +111,10 @@ func demonstrateTransaction(ctx context.Context, db *sql.DB) error {
 	query := "INSERT INTO users (username, email) VALUES (?, ?)"
 
 	// Вставляем пользователя со значением Email (передаем указатель на строку)
-	email1 := "Anton@example.com"
-	_, err = tx.ExecContext(ctx, query, "Anton", &email1)
+	email1 := "test@example.com"
+	_, err = tx.ExecContext(ctx, query, "test", &email1)
 	if err != nil {
-		return fmt.Errorf("ошибка вставки Anton: %w", err)
+		return fmt.Errorf("ошибка вставки test: %w", err)
 	}
 
 	// Вставляем пользователя, у которого Email равен NULL
